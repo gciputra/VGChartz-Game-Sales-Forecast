@@ -265,7 +265,8 @@ feature_corr = features.corrwith(df["Global"]).dropna().sort_values()
 feature_corr.tail(5)
 feature_corr.head(5)
 
-Output:
+Output: <br>
+```
 User_Score   0.155011
 Users        0.243130 
 Critic_Score 0.280368 
@@ -276,7 +277,8 @@ Platform_7   -0.188800
 Genre_6      -0.089523 
 Genre_10     -0.086620 
 Rating_6     -0.066765 
-Platform_10  -0.064360 
+Platform_10  -0.064360
+```
 Highest correlation are critic and user scores and counts which are understandable due to their importance in affecting customer judgements, but the lowest correlation being the PC_Platform was surprising. 
 
 Next, I wanted a control model as a basis to evaluate the performance of more complex regression models. For this, I chose the median sales as the baseline predictor and picked mean absolute error rather than RMSE as the measurement of accuracy or the cost function since there are still some mild outliers. 
