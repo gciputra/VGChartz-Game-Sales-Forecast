@@ -2,20 +2,19 @@
 Utilizes Gradient Boosting Regression combined with manual hyperparameter tuning to train and forecast global game sales, as evaluated through mean absolute error.
 
 ## Table of contents
-[Files and Directory](#files)
-[Preparations and Data Cleaning](#prep)
-[Data analysis and Visualization](#EDA)
-[Regression Model](#model)
-[Conclusion](#conclusion)
+[Files and Directory](#file) <br>
+[Data Cleaning and Arrangement](#prep) <br>
+[Exploratory Data Analysis and Visualization](#eda) <br>
+[Regression Model Fitting and Evaluation](#model) <br>
+[Summary](#summary)
 
-<a name='files'/>
-### Files
+### Files <a name='file' />
 - main.py: contains collections of snippets of code for each data visualization
 - requirements.txt: list of imported modules and frameworks along with their version
 - Video_Games_Sales_as_at_22_Dec_2016.csv: VGChartz 2016 region-specific game sales data and game features data
 
-<a name='prep'/>
-### Preparation and Data Cleaning
+
+### Preparation and Data Cleaning <a name='prep' />
 Python 3 environment comes with many helpful libraries for conducting scientific computing, data handling, and its visualization. Two most prominent modules for data analysis are numpy and pandas as they come with many useful built-in tools
 In the following imports: numpy and pandas are used mainly for data grouping and arrangements; matplotlib is used to plot dataframes as visual graph representations along with helpful labels; seaborn adds visual features to the plots; category_encoders will be used later for categorizing data types; lastly, scipy has some useful built-in correlation methods 
 
@@ -128,8 +127,8 @@ Output:
 The dataset is now mostly ready for data visualization and EDAs! :+1:
 ```
  
-<a name='eda'/>
-### Exploratory Data Analysis and Visualization
+
+### Exploratory Data Analysis and Visualization <a name='eda' />
 The dataset contains many interesting features such as genre, rating, developer, etc. The purpose of this section is to summarize interesting correlations between features and gain a deeper understanding of how game features affect each other before jumping to regression models. 
 
 Input:
@@ -252,8 +251,8 @@ sns.heatmap(correlation, annot=True, cmap="YlGnBu")
 Output:
 ![image](https://github.com/gciputra/VGChartz-Game-Sales-Forecast/assets/140233515/7e73dbda-95d5-4165-977b-acd862cf6dde)
 
-<a name='model'/>
-### Picking the Model and Optimization
+
+### Picking the Model and Optimization <a name='model'/>
 First, I categorized the features between numerical and categorical and utilized one hot encoding to assign numerical representations to categorical values to perform correlation analysis with global sales.
 Input:
 numerical = model_df.select_dtypes('number')
@@ -411,8 +410,8 @@ GradientBoostingRegressor(loss='absolute_error', max_depth=7,
                           min_samples_split=8, n_estimators=300,
                           random_state=42)
 ```
-<a name='conclusion'/>
-### Data Summary
+
+### Data Summary <a name='summary'/>
 Our final prediction model achieves an error of:
 Input:
 ```
@@ -438,15 +437,19 @@ Output:
 ![image](https://github.com/gciputra/VGChartz-Game-Sales-Forecast/assets/140233515/c831f03f-2a31-497d-99e2-6303119ecff0)
 These are the features that are most prominent in affecting game sales. 
 Input:
+```
 feature_importance = np.argsort(final_model.feature_importances_)
 feature_name = features.columns.tolist()
 plt.barh(feature_name, feature_importance, color='lime')
 plt.ylabel("Features")
 plt.title("Relative Importance")
+```
 Output:
 ![image](https://github.com/gciputra/VGChartz-Game-Sales-Forecast/assets/140233515/8432e062-a6f3-49fc-a3b7-8a7242f12cc0)
 
 Guide:
 Platforms: ['PS2', 'GBA', 'X360', 'PS3', 'PC', 'Wii', 'PSP', 'PS', 'XB', 'GC','DS', 'XOne', '3DS', 'DC', 'PS4', 'WiiU', 'PSV']
+
 Genre: ['Shooter', 'Action', 'Role-Playing', 'Racing', 'Simulation', 'Sports', 'Fighting', 'Platform', 'Misc', 'Strategy', 'Puzzle', 'Adventure']
+
 Ratings: ['M', 'E', 'T', 'E10+', 'RP']
